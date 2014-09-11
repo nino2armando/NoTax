@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_mainUiWrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/spinnerHeading"
+    android:textSize="15dp"/>
+
+    <Spinner
+        android:id="@+id/spinner_businessType_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/radius"
+        android:textSize="15dp"/>
+
+    <SeekBar
+        android:id="@+id/seekbar_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        android:max="100"/>
+
+    <TextView
+        android:id="@+id/textview_seekBarUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zeroKm"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/button_letsGo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/letsGo"
+        android:onClick="onClickSpinnerItemSelected"/>
+
+</LinearLayout>
