@@ -1,27 +1,25 @@
 package com.example.ninokhodabandeh.notax;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.Configuration;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.ninokhodabandeh.notax.Models.UserInputModel;
+import com.example.ninokhodabandeh.notax.Ui.Constants;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,10 +33,11 @@ public class MainActivity extends ActionBarActivity {
 
     private int _distance;
     private String _businessType;
+    private boolean _isUserEntry = false;
 
-    private static  final String _userInputItem = "Let me enter";
+    public static  final String DEFAULT_USERINPUT_ITEM = "Let me enter";
     private static  final String _notSelected = "Select";
-    private static  final String USER_INPUT = "com.example.ninokhodabandeh.notax.MainActivity.UserInput";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,9 @@ public class MainActivity extends ActionBarActivity {
         loadSeekBar();
 
         if(savedInstanceState != null){
-            String userInput = savedInstanceState.getString(USER_INPUT);
+
+            String userInput = savedInstanceState.getString(Constants.USER_INPUT);
+
             if(userInput != null){
                 _userInputEditText.setText(userInput);
             }
@@ -60,11 +61,9 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         String tempInput = _userInputEditText.getText().toString();
-
-        if(tempInput != null && !tempInput.isEmpty())
-            outState.putString(USER_INPUT, tempInput);
+        outState.putString(Constants.USER_INPUT, tempInput);
+        super.onSaveInstanceState(outState);
     }
 
     private void loadSpinner(){
@@ -85,12 +84,24 @@ public class MainActivity extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 _businessType = parent.getItemAtPosition(position).toString();
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(_context.INPUT_METHOD_SERVICE);
 
                 try{
-                    if(_businessType.equals(_userInputItem)){
+                    if(_businessType.equals(DEFAULT_USERINPUT_ITEM)){
                         layout.addView(_userInputEditText, spinnerPosition + 1);
+                        _isUserEntry = true;
+
+                        if(_userInputEditText.requestFocus()){
+                            // show keyboard
+                            inputMethodManager.showSoftInput(_userInputEditText, InputMethodManager.SHOW_IMPLICIT);
+                        }
+
                     }else{
                         layout.removeView(_userInputEditText);
+                        _userInputEditText.setText(null);
+                        _isUserEntry = false;
+                        // hide keyboard
+                        inputMethodManager.hideSoftInputFromWindow(_userInputEditText.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
                     }
                 }catch (Exception ex){
                     ex.printStackTrace();
@@ -152,7 +163,17 @@ public class MainActivity extends ActionBarActivity {
 
         if(_businessType.equals(_notSelected)){
             displayWarningDialog();
+            return;
         }
+
+        _businessType = _isUserEntry != true ? _businessType : _userInputEditText.getText().toString();
+        UserInputModel userInput = new UserInputModel(_distance, _businessType);
+
+        //todo: should we call api first and pass the content to the next activity or calling api should be next activities task
+        //todo: for now we just start the activity with the fake list
+
+        Intent resultActivity = new Intent(_context, ResultActivity.class);
+        startActivity(resultActivity);
     }
 
     @Override
