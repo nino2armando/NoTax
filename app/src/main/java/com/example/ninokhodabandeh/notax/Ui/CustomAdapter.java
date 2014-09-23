@@ -1,6 +1,7 @@
 package com.example.ninokhodabandeh.notax.Ui;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,13 @@ public class CustomAdapter extends ArrayAdapter<ApiResultModel> {
 
         labelView.setText(_itemArrayList.get(position).getDistance());
         valueView.setText(_itemArrayList.get(position).getContent());
+
+        int orientation = _context.getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            labelView.setTextSize(20);
+            valueView.setTextSize(10);
+        }
+
 
         return rowView;
     }

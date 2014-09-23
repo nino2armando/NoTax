@@ -23,7 +23,7 @@ public class ApiResultDetailFragment extends Fragment {
         ApiResultModel selectedItem = args.getParcelable(Constants.SELECTED_LIST_ITEM);
         View v = inflater.inflate(R.layout.fragment_apiresultdetail, null);
         TextView tv = (TextView) v.findViewById(R.id.test);
-        tv.setText(String.format("$1%s $2%s $3%s", selectedItem._id, selectedItem._distance , selectedItem._content));
+        tv.setText(String.format("%1s %2s %3s", selectedItem._id, selectedItem._distance , selectedItem._content));
         return v;
     }
 }

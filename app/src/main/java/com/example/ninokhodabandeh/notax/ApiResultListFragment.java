@@ -2,6 +2,7 @@ package com.example.ninokhodabandeh.notax;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,14 +23,35 @@ import java.util.ArrayList;
  */
 public class ApiResultListFragment extends ListFragment {
     private OnFragmentInteractionListener _callback;
+    private int _selectedListItem;
+    private boolean _userInteracted;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        _userInteracted = false;
         Bundle args = getArguments();
+
         ArrayList<ApiResultModel> _apiResults = args.getParcelableArrayList(Constants.API_RESULT);
         setListAdapter(new CustomAdapter(getActivity(), _apiResults));
+
+        boolean userInteracted = args.containsKey(Constants.SELECTED_LIST_ITEM_ID);
+
+        if(userInteracted){
+            _selectedListItem = args.getInt(Constants.SELECTED_LIST_ITEM_ID);
+            _userInteracted = true;
+        }
+
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        this.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        this.getListView().setSelector(R.drawable.selected_key);
+        if(_userInteracted)
+            this.getListView().setItemChecked(_selectedListItem, true);
     }
 
     @Override

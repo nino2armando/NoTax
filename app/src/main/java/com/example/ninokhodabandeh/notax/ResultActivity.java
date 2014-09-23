@@ -2,6 +2,7 @@ package com.example.ninokhodabandeh.notax;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.res.Configuration;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,20 +13,27 @@ import com.example.ninokhodabandeh.notax.Fakes.FakeContent;
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
 import com.example.ninokhodabandeh.notax.Ui.Constants;
 
+import java.sql.Savepoint;
 import java.util.ArrayList;
 
 
 public class ResultActivity extends ActionBarActivity implements ApiResultListFragment.OnFragmentInteractionListener {
 
     ArrayList<ApiResultModel> _testArray;
+    int _orientation;
+    int _selectedItemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        boolean userInteractedWithList = false;
+
         if(savedInstanceState != null){
             _testArray = savedInstanceState.getParcelableArrayList(Constants.API_RESULT);
+            _selectedItemId = savedInstanceState.getInt(Constants.SELECTED_LIST_ITEM_ID);
+            userInteractedWithList = true;
         }else{
             // todo: here we will call the api
             _testArray = FakeContent.getFakeApiContent();
@@ -36,8 +44,27 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
 
         Bundle args = new Bundle();
         args.putParcelableArrayList(Constants.API_RESULT, _testArray);
+
+        if(userInteractedWithList)
+            args.putInt(Constants.SELECTED_LIST_ITEM_ID, _selectedItemId);
+
         listFragment.setArguments(args);
-        fragmentManager.beginTransaction().add(R.id.fragment_container, listFragment).addToBackStack(null).commit();
+
+        _orientation = getResources().getConfiguration().orientation;
+
+        if(_orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+            if(currentFragment != null){
+                if(currentFragment instanceof ApiResultListFragment){
+                    fragmentManager.beginTransaction().remove(currentFragment).commit();
+                }
+            }
+            fragmentManager.beginTransaction().replace(R.id.listFragment_container, listFragment).addToBackStack(null).commit();
+
+        }else{
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, listFragment).addToBackStack(null).commit();
+        }
     }
 
     @Override
@@ -46,6 +73,7 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
         if(!_testArray.isEmpty()){
             outState.putParcelableArrayList(Constants.API_RESULT, _testArray);
         }
+        outState.putInt(Constants.SELECTED_LIST_ITEM_ID, _selectedItemId);
         super.onSaveInstanceState(outState);
     }
 
@@ -83,7 +111,7 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
     @Override
     public void onFragmentInteraction(int itemId) {
         // we start the detail fragment here
-
+        _selectedItemId = itemId;
         ApiResultModel selectedItem = _testArray.get(itemId);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -99,12 +127,12 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
         args.putParcelable(Constants.SELECTED_LIST_ITEM, selectedItem);
         detailFragment.setArguments(args);
 
-
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack(null).commit();
-
+        if(_orientation == Configuration.ORIENTATION_LANDSCAPE){
+            fragmentManager.beginTransaction().replace(R.id.detailFragment_container, detailFragment).addToBackStack(null).commit();
+        }
+        else{
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack(null).commit();
+        }
     }
 
-    private void displayDetailFragment(){
-
-    }
 }
