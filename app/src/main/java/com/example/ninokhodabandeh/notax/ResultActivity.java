@@ -2,6 +2,7 @@ package com.example.ninokhodabandeh.notax;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -40,6 +41,7 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
         }
 
         FragmentManager fragmentManager = getFragmentManager();
+
         ApiResultListFragment listFragment = new ApiResultListFragment();
 
         Bundle args = new Bundle();
@@ -53,7 +55,6 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
         _orientation = getResources().getConfiguration().orientation;
 
         if(_orientation == Configuration.ORIENTATION_LANDSCAPE){
-
             Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
             if(currentFragment != null){
                 if(currentFragment instanceof ApiResultListFragment){
@@ -116,11 +117,15 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
 
         FragmentManager fragmentManager = getFragmentManager();
 
+
+        // todo: after the map works properly invistigate if we need this
+        //todo: begin
         Fragment previousFragment = fragmentManager.findFragmentById(R.id.fragment_container);
 
         if(previousFragment != null){
             fragmentManager.beginTransaction().remove(previousFragment);
         }
+        // todo: end
 
         ApiResultDetailFragment detailFragment = new ApiResultDetailFragment();
         Bundle args = new Bundle();
@@ -134,5 +139,4 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
             fragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack(null).commit();
         }
     }
-
 }
