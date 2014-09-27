@@ -14,9 +14,7 @@
     <fragment
         android:id="@+id/detailFragment_container"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="left"
-        android:name="com.example.ninokhodabandeh.notax.ApiResultDetailFragment"
-        class = "com.google.android.gms.maps.SupportMapFragment"/> <!--http://stackoverflow.com/a/18307228/2629087-->
+        android:layout_height="wrap_content"
+        android:name="com.example.ninokhodabandeh.notax.ApiResultDetailFragment"/>
 
 </LinearLayout>

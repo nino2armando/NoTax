@@ -53,7 +53,6 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
         listFragment.setArguments(args);
 
         _orientation = getResources().getConfiguration().orientation;
-
         if(_orientation == Configuration.ORIENTATION_LANDSCAPE){
             Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
             if(currentFragment != null){
@@ -61,10 +60,17 @@ public class ResultActivity extends ActionBarActivity implements ApiResultListFr
                     fragmentManager.beginTransaction().remove(currentFragment).commit();
                 }
             }
+            listFragment.setArguments(args);
             fragmentManager.beginTransaction().replace(R.id.listFragment_container, listFragment).addToBackStack(null).commit();
 
         }else{
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, listFragment).addToBackStack(null).commit();
+            if(userInteractedWithList){
+                ApiResultDetailFragment detailFragment = new ApiResultDetailFragment();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, detailFragment).addToBackStack(null).commit();
+            }else {
+                listFragment.setArguments(args);
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, listFragment).addToBackStack(null).commit();
+            }
         }
     }
 
