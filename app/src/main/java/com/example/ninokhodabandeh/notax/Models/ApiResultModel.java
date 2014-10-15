@@ -7,29 +7,29 @@ import android.os.Parcelable;
  * Created by nino.khodabandeh on 9/15/2014.
  */
 public class ApiResultModel implements Parcelable {
-    public int _id;
-    public String _content;
-    public String _distance;
+    private int mId;
+    private String mContent;
+    private String mDistance;
 
     public ApiResultModel(int id, String content, String distance){
         super();
-        _id = id;
-        _content = content;
-        _distance = distance;
+        this.mId = id;
+        this.mContent = content;
+        this.mDistance = distance;
     }
 
     public ApiResultModel(Parcel in){
-        _id = in.readInt();
-        _content = in.readString();
-        _distance = in.readString();
+        mId = in.readInt();
+        mContent = in.readString();
+        mDistance = in.readString();
     }
 
-    public int getId(){return this._id;}
+    public int getId(){return mId;}
 
-    public String getContent(){return this._content;}
+    public String getContent(){return mContent;}
 
     public String getDistance(){
-        return String.format("%1$s km", this._distance);
+        return String.format("%1$s km", mDistance);
     }
 
     @Override
@@ -39,9 +39,9 @@ public class ApiResultModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(_id);
-        dest.writeString(_content);
-        dest.writeString(_distance);
+        dest.writeInt(mId);
+        dest.writeString(mContent);
+        dest.writeString(mDistance);
     }
 
     public static final Creator<ApiResultModel> CREATOR = new Creator<ApiResultModel>() {

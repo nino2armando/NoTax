@@ -43,6 +43,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ninokhodabandeh.notax.MainActivity" />
         </activity>
+        <activity
+            android:name=".ResultListActivity"
+            android:label="@string/title_result_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ninokhodabandeh.notax.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ResultDetailActivity"
+            android:label="@string/title_result_detail"
+            android:parentActivityName=".ResultListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ninokhodabandeh.notax.resultListActivity" />
+        </activity>
     </application>
 
 </manifest>

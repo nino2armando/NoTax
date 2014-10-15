@@ -169,10 +169,8 @@ public class MainActivity extends ActionBarActivity {
         _businessType = _isUserEntry != true ? _businessType : _userInputEditText.getText().toString();
         UserInputModel userInput = new UserInputModel(_distance, _businessType);
 
-        //todo: should we call api first and pass the content to the next activity or calling api should be next activities task
-        //todo: for now we just start the activity with the fake list
-
-        Intent resultActivity = new Intent(_context, ResultActivity.class);
+        Intent resultActivity = new Intent(_context, ResultListActivity.class);
+        resultActivity.putExtra(Constants.USER_INPUT, userInput);
         startActivity(resultActivity);
     }
 
