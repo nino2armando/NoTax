@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.example.ninokhodabandeh.notax.Fakes.FakeContent;
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
+import com.example.ninokhodabandeh.notax.Ui.Constants;
 import com.example.ninokhodabandeh.notax.Ui.CustomAdapter;
 import com.example.ninokhodabandeh.notax.dummy.DummyContent;
 
@@ -85,6 +86,7 @@ public class ResultListFragment extends ListFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setActivateOnItemClick(true);
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {

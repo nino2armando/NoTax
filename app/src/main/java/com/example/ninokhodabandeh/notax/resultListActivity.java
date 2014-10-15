@@ -45,13 +45,17 @@ public class ResultListActivity extends FragmentActivity
         // Show the Up button in the action bar.
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent userInputData = getIntent();
-        if(userInputData != null){
-            mUserInput = userInputData.getParcelableExtra(Constants.USER_INPUT);
-        }
+        Intent extraData = getIntent();
 
+        if(extraData != null){
+            mUserInput = extraData.getParcelableExtra(Constants.USER_INPUT);
+        }
         // todo: do something with userInput e.g. call the api
-        // we also need to pass the data to the child listFragment
+
+        // we are calling the choice mode in the onViewCreated of the ListFragment
+/*        ((ResultListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.result_list))
+                .setActivateOnItemClick(true);*/
 
         if (findViewById(R.id.result_detail_container) != null) {
             // The detail container view will be present only in the
@@ -59,14 +63,13 @@ public class ResultListActivity extends FragmentActivity
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
-
-            // In two-pane mode, list items should be given the
-            // 'activated' state when touched.
-            ((ResultListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.result_list))
-                    .setActivateOnItemClick(true);
         }
         // TODO: If exposing deep links into your app, handle intents here.
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

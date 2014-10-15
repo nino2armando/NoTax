@@ -6,6 +6,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
+import com.example.ninokhodabandeh.notax.Ui.Constants;
+
 
 /**
  * An activity representing a single result detail screen. This
@@ -39,8 +42,7 @@ public class ResultDetailActivity extends ActionBarActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putParcelable(ResultDetailFragment.ARG_ITEM,
-                    getIntent().getParcelableExtra(ResultDetailFragment.ARG_ITEM));
+            arguments.putParcelable(ResultDetailFragment.ARG_ITEM, getIntent().getParcelableExtra(ResultDetailFragment.ARG_ITEM));
             ResultDetailFragment fragment = new ResultDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

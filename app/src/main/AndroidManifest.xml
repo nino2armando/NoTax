@@ -36,14 +36,6 @@
         <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyA1IJ8iBEeGBZ7xewUkbbxsmL1TiYNYsjE"/>
         -->
         <activity
-            android:name=".ResultActivity"
-            android:label="@string/title_activity_result"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ninokhodabandeh.notax.MainActivity" />
-        </activity>
-        <activity
             android:name=".ResultListActivity"
             android:label="@string/title_result_list"
             android:parentActivityName=".MainActivity" >
