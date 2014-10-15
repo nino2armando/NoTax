@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
-import com.example.ninokhodabandeh.notax.dummy.DummyContent;
 
 /**
  * A fragment representing a single result detail screen.
@@ -24,9 +22,6 @@ public class ResultDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM = "item";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
     private ApiResultModel mItem;
 
     /**

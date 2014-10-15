@@ -48,9 +48,10 @@ public class ResultListActivity extends FragmentActivity
         Intent extraData = getIntent();
 
         if(extraData != null){
+            // todo: do something with userInput e.g. call the api
             mUserInput = extraData.getParcelableExtra(Constants.USER_INPUT);
         }
-        // todo: do something with userInput e.g. call the api
+
 
         // we are calling the choice mode in the onViewCreated of the ListFragment
 /*        ((ResultListFragment) getSupportFragmentManager()
@@ -95,6 +96,7 @@ public class ResultListActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(ApiResultModel item) {
+
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a

@@ -2,16 +2,14 @@ package com.example.ninokhodabandeh.notax;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
-
 import com.example.ninokhodabandeh.notax.Fakes.FakeContent;
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
-import com.example.ninokhodabandeh.notax.Ui.Constants;
 import com.example.ninokhodabandeh.notax.Ui.CustomAdapter;
-import com.example.ninokhodabandeh.notax.dummy.DummyContent;
 
 import java.util.ArrayList;
 
@@ -25,6 +23,8 @@ import java.util.ArrayList;
  * interface.
  */
 public class ResultListFragment extends ListFragment {
+
+    private static Parcelable mListViewSchrollPos = null;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -57,10 +57,6 @@ public class ResultListFragment extends ListFragment {
         public void onItemSelected(ApiResultModel item);
     }
 
-    /**
-     * A dummy implementation of the {@link Callbacks} interface that does
-     * nothing. Used only when this fragment is not attached to an activity.
-     */
     private static Callbacks sCallbacks = new Callbacks() {
         @Override
         public void onItemSelected(ApiResultModel item) {
@@ -91,6 +87,10 @@ public class ResultListFragment extends ListFragment {
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
+        }
+
+        if(mListViewSchrollPos != null){
+            getListView().onRestoreInstanceState(mListViewSchrollPos);
         }
     }
 
@@ -130,7 +130,10 @@ public class ResultListFragment extends ListFragment {
             // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
+
+        mListViewSchrollPos = getListView().onSaveInstanceState();
     }
+
 
     /**
      * Turns on activate-on-click mode. When this mode is on, list items will be
