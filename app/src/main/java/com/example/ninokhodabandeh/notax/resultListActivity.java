@@ -6,9 +6,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.example.ninokhodabandeh.notax.Fakes.FakeContent;
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
 import com.example.ninokhodabandeh.notax.Models.UserInputModel;
 import com.example.ninokhodabandeh.notax.Ui.Constants;
+
+import java.util.ArrayList;
 
 
 /**
@@ -30,6 +33,8 @@ import com.example.ninokhodabandeh.notax.Ui.Constants;
 public class ResultListActivity extends FragmentActivity
         implements ResultListFragment.Callbacks {
 
+    private ArrayList<ApiResultModel> mApiResult;
+
     private UserInputModel mUserInput;
 
     /**
@@ -47,11 +52,24 @@ public class ResultListActivity extends FragmentActivity
 
         Intent extraData = getIntent();
 
+        // todo: IMPORTANT based on the userInput generate a hash and store the hash and the api result as a key value pair in the sharedPrefs, if hash changes new api call happens
+
         if(extraData != null){
             // todo: do something with userInput e.g. call the api
             mUserInput = extraData.getParcelableExtra(Constants.USER_INPUT);
+            // todo: if mUserInput is null then reuse the arrayList else request a new one base on the mUserInput
+            mApiResult = FakeContent.getFakeApiContent();
         }
 
+        // register the fragment here
+        ResultListFragment currentFragment = (ResultListFragment)getSupportFragmentManager().findFragmentById(R.id.result_list);
+        if(currentFragment == null){
+            Bundle args = new Bundle();
+            args.putParcelableArrayList(Constants.API_RESULT, mApiResult);
+            ResultListFragment listFragment = new ResultListFragment();
+            listFragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction().add(R.id.result_list, listFragment).commit();
+        }
 
         // we are calling the choice mode in the onViewCreated of the ListFragment
 /*        ((ResultListFragment) getSupportFragmentManager()

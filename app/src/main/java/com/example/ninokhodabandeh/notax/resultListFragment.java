@@ -1,17 +1,23 @@
 package com.example.ninokhodabandeh.notax;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
 import com.example.ninokhodabandeh.notax.Fakes.FakeContent;
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
+import com.example.ninokhodabandeh.notax.Ui.Constants;
 import com.example.ninokhodabandeh.notax.Ui.CustomAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A list fragment representing a list of results. This fragment
@@ -74,7 +80,12 @@ public class ResultListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mApiResult = FakeContent.getFakeApiContent();
+
+        Bundle args = getArguments();
+        if(args != null && args.containsKey(Constants.API_RESULT)){
+            mApiResult = args.getParcelableArrayList(Constants.API_RESULT);
+        }
+
         setListAdapter(new CustomAdapter(getActivity(), mApiResult));
     }
 
@@ -133,7 +144,6 @@ public class ResultListFragment extends ListFragment {
 
         mListViewState = getListView().onSaveInstanceState();
     }
-
 
     /**
      * Turns on activate-on-click mode. When this mode is on, list items will be
