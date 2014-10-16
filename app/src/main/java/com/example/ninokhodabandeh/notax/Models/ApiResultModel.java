@@ -1,5 +1,6 @@
 package com.example.ninokhodabandeh.notax.Models;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,8 +9,13 @@ import android.os.Parcelable;
  */
 public class ApiResultModel implements Parcelable {
     private int mId;
+    private String mTitle;
+    private String mAddress;
     private String mContent;
     private String mDistance;
+    private String mPhone;
+    private Location mLocation;
+
 
     public ApiResultModel(int id, String content, String distance){
         super();
@@ -55,4 +61,9 @@ public class ApiResultModel implements Parcelable {
             return new ApiResultModel[size];
         }
     };
+
+    public class Location{
+        private String mLat;
+        private String mLng;
+    }
 }

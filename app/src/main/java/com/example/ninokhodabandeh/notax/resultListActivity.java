@@ -50,6 +50,7 @@ public class ResultListActivity extends FragmentActivity
         // Show the Up button in the action bar.
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         Intent extraData = getIntent();
 
         // todo: IMPORTANT based on the userInput generate a hash and store the hash and the api result as a key value pair in the sharedPrefs, if hash changes new api call happens
@@ -84,12 +85,16 @@ public class ResultListActivity extends FragmentActivity
             mTwoPane = true;
         }
         // TODO: If exposing deep links into your app, handle intents here.
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
