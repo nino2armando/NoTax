@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff200"
+    android:orientation="vertical"
+    tools:context="com.example.ninokhodabandeh.notax.SplashActivity"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:id="@+id/splashScreen"
+        android:layout_width="453dp"
+        android:layout_height="109dp"
+        android:src="@drawable/ic_launcher"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/Icon" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/loading"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_weight="0.11" />
+
+</LinearLayout>

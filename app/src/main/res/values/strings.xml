@@ -18,7 +18,7 @@
     <!-- Spinner Items -->
     <string-array name="businessType_array">
         <item>Select</item>
-       <item>Gas Station</item>
+        <item>Gas Station</item>
         <item>Corner Store</item>
         <item>Liquor Store</item>
         <item>Mall</item>
@@ -28,5 +28,8 @@
 
     <string name="title_result_list">results</string>
     <string name="title_result_detail">result Detail</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="loading">Loading...</string>
+    <string name="Icon">No Tax Icon</string>
 
 </resources>
