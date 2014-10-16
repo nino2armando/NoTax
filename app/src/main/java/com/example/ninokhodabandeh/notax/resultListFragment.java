@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class ResultListFragment extends ListFragment {
 
-    private static Parcelable mListViewSchrollPos = null;
+    private static Parcelable mListViewState = null;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -89,8 +89,8 @@ public class ResultListFragment extends ListFragment {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
 
-        if(mListViewSchrollPos != null){
-            getListView().onRestoreInstanceState(mListViewSchrollPos);
+        if(mListViewState != null){
+            getListView().onRestoreInstanceState(mListViewState);
         }
     }
 
@@ -131,7 +131,7 @@ public class ResultListFragment extends ListFragment {
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
 
-        mListViewSchrollPos = getListView().onSaveInstanceState();
+        mListViewState = getListView().onSaveInstanceState();
     }
 
 
