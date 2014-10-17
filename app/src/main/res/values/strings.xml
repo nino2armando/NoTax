@@ -31,5 +31,8 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="loading">Loading...</string>
     <string name="Icon">No Tax Icon</string>
+    <string name="resolved">Error resolved. Please re-try operation.</string>
+    <string name="no_resolution">Google Play services: unable to resolve connection error.</string>
+    <string name="unknown_activity_request_code">Received an unknown activity request code %1$d in onActivityResult.</string>
 
 </resources>
