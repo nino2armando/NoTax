@@ -1,6 +1,8 @@
 package com.example.ninokhodabandeh.notax;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
@@ -8,8 +10,11 @@ import android.view.MenuItem;
 
 import com.example.ninokhodabandeh.notax.Fakes.FakeContent;
 import com.example.ninokhodabandeh.notax.Models.ApiResultModel;
+import com.example.ninokhodabandeh.notax.Models.SimpleLocation;
 import com.example.ninokhodabandeh.notax.Models.UserInputModel;
 import com.example.ninokhodabandeh.notax.Ui.Constants;
+import com.example.ninokhodabandeh.notax.util.LocationUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -50,13 +55,16 @@ public class ResultListActivity extends FragmentActivity
         // Show the Up button in the action bar.
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // retrieve location
+        SharedPreferences sharedPrefs = getSharedPreferences(LocationUtils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String simpleLocationJson = sharedPrefs.getString(Constants.RETRIEVED_LOCATION, "");
+        SimpleLocation location = gson.fromJson(simpleLocationJson, SimpleLocation.class);
 
         Intent extraData = getIntent();
 
-        // todo: IMPORTANT based on the userInput generate a hash and store the hash and the api result as a key value pair in the sharedPrefs, if hash changes new api call happens
-
         if(extraData != null){
-            // todo: do something with userInput e.g. call the api
+            // todo: do something with userInput + location e.g. call the api
             mUserInput = extraData.getParcelableExtra(Constants.USER_INPUT);
             // todo: if mUserInput is null then reuse the arrayList else request a new one base on the mUserInput
             mApiResult = FakeContent.getFakeApiContent();
